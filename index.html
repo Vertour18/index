@@ -140,6 +140,7 @@
 <h1>ROBLOX MarketPlace Tax Calculator</h1>
 
 <input type="text" id="input" name="input" placeholder="Enter your amount..."><br>
+<p class="input-info">Please enter numbers only. Avoid using commas or special characters.</p>
 
 <button type="button" onclick="calc()">Calculate MarketPlace Tax!</button>
 
@@ -172,9 +173,15 @@
 <script type="text/javascript">
     function calc() {
         let input = document.getElementById("input").value;
+        // Ensure only numbers are used
+        if (isNaN(input) || input.trim() === "") {
+            alert("Please enter a valid number without commas or symbols.");
+            return;
+        }
         let output = Math.floor(0.7 * input);
         document.getElementById('output').innerHTML = output + "R$";
     }
+
 
     function toggleSettingsMenu() {
         const menu = document.getElementById('settingsMenu');
@@ -217,4 +224,3 @@
 
 </body>
 </html>
-
