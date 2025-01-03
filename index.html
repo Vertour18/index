@@ -34,10 +34,17 @@
             background: #2d2d3d;
             color: #ffffff;
             font-size: 18px;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
             text-align: center;
             font-family: 'Fredoka One', sans-serif;
+        }
+
+        .input-info {
+            font-size: 14px;
+            color: #ff9999;
+            margin-bottom: 20px;
+            text-align: center;
         }
 
         button {
@@ -163,6 +170,7 @@
 <h1>ROBLOX MarketPlace Tax Calculator</h1>
 
 <input type="text" id="input" name="input" placeholder="Enter your amount..."><br>
+<p class="input-info">Please enter numbers only. Avoid using commas or special characters.</p>
 
 <button type="button" onclick="calc()">Calculate MarketPlace Tax!</button>
 
@@ -173,8 +181,8 @@
 </div>
 
 <div class="settings-menu" id="settingsMenu">
-    <div class="tab" onclick="showTab('networks')">Redes</div>
-    <div class="tab" onclick="showTab('appearance')">Aspecto</div>
+    <div class="tab" onclick="showTab('networks')">Networks</div>
+    <div class="tab" onclick="showTab('appearance')">Appearance</div>
     
     <div class="content" id="networks">
         <a href="https://www.roblox.com/es/users/3416003463/profile" target="_blank">Roblox Profile</a>
@@ -183,8 +191,8 @@
     </div>
 
     <div class="content" id="appearance">
-        <button onclick="setTheme('default')">Color Default</button>
-        <button onclick="setTheme('white')">Color Blanco</button>
+        <button onclick="setTheme('default')">Default Theme</button>
+        <button onclick="setTheme('white')">White Theme</button>
     </div>
 </div>
 
@@ -195,6 +203,11 @@
 <script type="text/javascript">
     function calc() {
         let input = document.getElementById("input").value;
+        // Ensure only numbers are used
+        if (isNaN(input) || input.trim() === "") {
+            alert("Please enter a valid number without commas or symbols.");
+            return;
+        }
         let output = Math.floor(0.7 * input);
         document.getElementById('output').innerHTML = output + "R$";
     }
@@ -224,3 +237,4 @@
 
 </body>
 </html>
+
