@@ -34,17 +34,10 @@
             background: #2d2d3d;
             color: #ffffff;
             font-size: 18px;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
             text-align: center;
             font-family: 'Fredoka One', sans-serif;
-        }
-
-        .input-info {
-            font-size: 14px;
-            color: #ff9999;
-            margin-bottom: 20px;
-            text-align: center;
         }
 
         button {
@@ -82,20 +75,7 @@
             cursor: pointer;
             color: #ffffff;
             font-size: 24px;
-            transition: transform 0.2s;
-        }
-
-        .settings-icon:hover::after {
-            content: "Configuración";
-            position: absolute;
-            top: 30px;
-            right: -10px;
-            background: #2d2d3d;
-            color: #ffffff;
-            padding: 5px 10px;
-            border-radius: 6px;
-            font-size: 14px;
-            font-family: 'Fredoka One', sans-serif;
+            transition: transform 0.2s, color 0.3s;
         }
 
         .settings-menu {
@@ -119,7 +99,7 @@
             background: #34344a;
             border-radius: 8px;
             color: #ffffff;
-            transition: background 0.2s;
+            transition: background 0.2s, color 0.3s;
         }
 
         .settings-menu .tab:hover {
@@ -135,16 +115,6 @@
 
         .settings-menu .content.active {
             display: flex;
-        }
-
-        .settings-menu a {
-            color: #d4d4d4;
-            text-decoration: none;
-            font-size: 16px;
-        }
-
-        .settings-menu a:hover {
-            text-decoration: underline;
         }
 
         .credits {
@@ -170,19 +140,18 @@
 <h1>ROBLOX MarketPlace Tax Calculator</h1>
 
 <input type="text" id="input" name="input" placeholder="Enter your amount..."><br>
-<p class="input-info">Please enter numbers only. Avoid using commas or special characters.</p>
 
 <button type="button" onclick="calc()">Calculate MarketPlace Tax!</button>
 
 <label id="output">0R$</label>
 
-<div class="settings-icon" onclick="toggleSettingsMenu()">
+<div class="settings-icon" id="settingsIcon" onclick="toggleSettingsMenu()">
     ⋮
 </div>
 
 <div class="settings-menu" id="settingsMenu">
-    <div class="tab" onclick="showTab('networks')">Networks</div>
-    <div class="tab" onclick="showTab('appearance')">Appearance</div>
+    <div class="tab" onclick="showTab('networks')">Redes</div>
+    <div class="tab" onclick="showTab('appearance')">Aspecto</div>
     
     <div class="content" id="networks">
         <a href="https://www.roblox.com/es/users/3416003463/profile" target="_blank">Roblox Profile</a>
@@ -191,8 +160,8 @@
     </div>
 
     <div class="content" id="appearance">
-        <button onclick="setTheme('default')">Default Theme</button>
-        <button onclick="setTheme('white')">White Theme</button>
+        <button onclick="setTheme('default')">Color Default</button>
+        <button onclick="setTheme('white')">Color Blanco</button>
     </div>
 </div>
 
@@ -203,11 +172,6 @@
 <script type="text/javascript">
     function calc() {
         let input = document.getElementById("input").value;
-        // Ensure only numbers are used
-        if (isNaN(input) || input.trim() === "") {
-            alert("Please enter a valid number without commas or symbols.");
-            return;
-        }
         let output = Math.floor(0.7 * input);
         document.getElementById('output').innerHTML = output + "R$";
     }
@@ -225,16 +189,31 @@
 
     function setTheme(theme) {
         const body = document.body;
+        const settingsIcon = document.getElementById('settingsIcon');
+        const settingsMenu = document.getElementById('settingsMenu');
+        const tabs = document.querySelectorAll('.settings-menu .tab');
+        
         if (theme === 'default') {
             body.style.background = 'linear-gradient(135deg, #2c2c38, #3c3c50)';
             body.style.color = '#ffffff';
+            settingsIcon.style.color = '#ffffff';
+            tabs.forEach(tab => {
+                tab.style.color = '#ffffff';
+                tab.style.background = '#34344a';
+            });
+            settingsMenu.style.background = '#2d2d3d';
         } else if (theme === 'white') {
-            body.style.background = 'white';
+            body.style.background = '#ffffff';
             body.style.color = '#000000';
+            settingsIcon.style.color = '#000000';
+            tabs.forEach(tab => {
+                tab.style.color = '#000000';
+                tab.style.background = '#dcdcdc';
+            });
+            settingsMenu.style.background = '#f2f2f2';
         }
     }
 </script>
 
 </body>
 </html>
-
