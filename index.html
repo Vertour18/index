@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROBLOX MarketPlace Tax Calculator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #2c2c38, #3c3c50);
+            color: #ffffff;
+            font-family: 'Fredoka One', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #ae9cff;
+            text-shadow: 2px 2px 4px #000;
+        }
+
+        input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            background: #2d2d3d;
+            color: #ffffff;
+            font-size: 18px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            font-family: 'Fredoka One', sans-serif;
+        }
+
+        button {
+            padding: 12px 20px;
+            font-size: 18px;
+            color: #ffffff;
+            background: linear-gradient(145deg, #ff5e5e, #ff2626);
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s;
+            font-family: 'Fredoka One', sans-serif;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+        }
+
+        label {
+            font-size: 24px;
+            color: #00ff88;
+            margin-top: 20px;
+            text-shadow: 1px 1px 4px #000;
+        }
+
+        .settings-icon {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #ffffff;
+            font-size: 24px;
+            transition: transform 0.2s;
+        }
+
+        .settings-icon:hover::after {
+            content: "Configuración";
+            position: absolute;
+            top: 30px;
+            right: -10px;
+            background: #2d2d3d;
+            color: #ffffff;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: 'Fredoka One', sans-serif;
+        }
+
+        .settings-menu {
+            position: fixed;
+            top: 60px;
+            right: 20px;
+            background: #2d2d3d;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+            width: 200px;
+        }
+
+        .settings-menu .tab {
+            cursor: pointer;
+            padding: 10px;
+            text-align: center;
+            background: #34344a;
+            border-radius: 8px;
+            color: #ffffff;
+            transition: background 0.2s;
+        }
+
+        .settings-menu .tab:hover {
+            background: #b8c5ff;
+            color: #2d2d3d;
+        }
+
+        .settings-menu .content {
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .settings-menu .content.active {
+            display: flex;
+        }
+
+        .settings-menu a {
+            color: #d4d4d4;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .settings-menu a:hover {
+            text-decoration: underline;
+        }
+
+        .credits {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            color: #66ccff;
+            font-size: 14px;
+        }
+
+        .credits a {
+            text-decoration: none;
+            color: #66ccff;
+        }
+
+        .credits a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<h1>ROBLOX MarketPlace Tax Calculator</h1>
+
+<input type="text" id="input" name="input" placeholder="Enter your amount..."><br>
+
+<button type="button" onclick="calc()">Calculate MarketPlace Tax!</button>
+
+<label id="output">0R$</label>
+
+<div class="settings-icon" onclick="toggleSettingsMenu()">
+    ⋮
+</div>
+
+<div class="settings-menu" id="settingsMenu">
+    <div class="tab" onclick="showTab('networks')">Redes</div>
+    <div class="tab" onclick="showTab('appearance')">Aspecto</div>
+    
+    <div class="content" id="networks">
+        <a href="https://www.roblox.com/es/users/3416003463/profile" target="_blank">Roblox Profile</a>
+        <a href="mailto:your-email@gmail.com" target="_blank">Gmail</a>
+        <a href="https://twitter.com/your-twitter-handle" target="_blank">Twitter</a>
+    </div>
+
+    <div class="content" id="appearance">
+        <button onclick="setTheme('default')">Color Default</button>
+        <button onclick="setTheme('white')">Color Blanco</button>
+    </div>
+</div>
+
+<div class="credits">
+    <p>© Mystic Rose Studios</p>
+</div>
+
+<script type="text/javascript">
+    function calc() {
+        let input = document.getElementById("input").value;
+        let output = Math.floor(0.7 * input);
+        document.getElementById('output').innerHTML = output + "R$";
+    }
+
+    function toggleSettingsMenu() {
+        const menu = document.getElementById('settingsMenu');
+        menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+    }
+
+    function showTab(tab) {
+        const tabs = document.querySelectorAll('.settings-menu .content');
+        tabs.forEach(t => t.classList.remove('active'));
+        document.getElementById(tab).classList.add('active');
+    }
+
+    function setTheme(theme) {
+        const body = document.body;
+        if (theme === 'default') {
+            body.style.background = 'linear-gradient(135deg, #2c2c38, #3c3c50)';
+            body.style.color = '#ffffff';
+        } else if (theme === 'white') {
+            body.style.background = 'white';
+            body.style.color = '#000000';
+        }
+    }
+</script>
+
+</body>
+</html>
