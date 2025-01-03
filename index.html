@@ -34,10 +34,17 @@
             background: #2d2d3d;
             color: #ffffff;
             font-size: 18px;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
             text-align: center;
             font-family: 'Fredoka One', sans-serif;
+        }
+
+        .input-info {
+            font-size: 14px;
+            color: #ff9999;
+            margin-bottom: 20px;
+            text-align: center;
         }
 
         button {
@@ -75,7 +82,20 @@
             cursor: pointer;
             color: #ffffff;
             font-size: 24px;
-            transition: transform 0.2s, color 0.3s;
+            transition: transform 0.2s;
+        }
+
+        .settings-icon:hover::after {
+            content: "Configuración";
+            position: absolute;
+            top: 30px;
+            right: -10px;
+            background: #2d2d3d;
+            color: #ffffff;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: 'Fredoka One', sans-serif;
         }
 
         .settings-menu {
@@ -99,7 +119,7 @@
             background: #34344a;
             border-radius: 8px;
             color: #ffffff;
-            transition: background 0.2s, color 0.3s;
+            transition: background 0.2s;
         }
 
         .settings-menu .tab:hover {
@@ -115,6 +135,16 @@
 
         .settings-menu .content.active {
             display: flex;
+        }
+
+        .settings-menu a {
+            color: #d4d4d4;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .settings-menu a:hover {
+            text-decoration: underline;
         }
 
         .credits {
@@ -146,23 +176,23 @@
 
 <label id="output">0R$</label>
 
-<div class="settings-icon" id="settingsIcon" onclick="toggleSettingsMenu()">
+<div class="settings-icon" onclick="toggleSettingsMenu()">
     ⋮
 </div>
 
 <div class="settings-menu" id="settingsMenu">
-    <div class="tab" onclick="showTab('networks')">Redes</div>
-    <div class="tab" onclick="showTab('appearance')">Aspecto</div>
+    <div class="tab" onclick="showTab('networks')">Networks</div>
+    <div class="tab" onclick="showTab('appearance')">Appearance</div>
     
     <div class="content" id="networks">
         <a href="https://www.roblox.com/es/users/3416003463/profile" target="_blank">Roblox Profile</a>
         <a href="mailto:your-email@gmail.com" target="_blank">Gmail</a>
-        <a href="https://discord.gg/F4mQfZ4v" target="_blank">Discord</a>
+        <a href="https://twitter.com/your-twitter-handle" target="_blank">Twitter</a>
     </div>
 
     <div class="content" id="appearance">
-        <button onclick="setTheme('default')">Color Default</button>
-        <button onclick="setTheme('white')">Color Blanco</button>
+        <button onclick="setTheme('default')">Default Theme</button>
+        <button onclick="setTheme('white')">White Theme</button>
     </div>
 </div>
 
@@ -182,7 +212,6 @@
         document.getElementById('output').innerHTML = output + "R$";
     }
 
-
     function toggleSettingsMenu() {
         const menu = document.getElementById('settingsMenu');
         menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
@@ -196,28 +225,12 @@
 
     function setTheme(theme) {
         const body = document.body;
-        const settingsIcon = document.getElementById('settingsIcon');
-        const settingsMenu = document.getElementById('settingsMenu');
-        const tabs = document.querySelectorAll('.settings-menu .tab');
-        
         if (theme === 'default') {
             body.style.background = 'linear-gradient(135deg, #2c2c38, #3c3c50)';
             body.style.color = '#ffffff';
-            settingsIcon.style.color = '#ffffff';
-            tabs.forEach(tab => {
-                tab.style.color = '#ffffff';
-                tab.style.background = '#34344a';
-            });
-            settingsMenu.style.background = '#2d2d3d';
         } else if (theme === 'white') {
-            body.style.background = '#ffffff';
+            body.style.background = 'white';
             body.style.color = '#000000';
-            settingsIcon.style.color = '#000000';
-            tabs.forEach(tab => {
-                tab.style.color = '#000000';
-                tab.style.background = '#dcdcdc';
-            });
-            settingsMenu.style.background = '#f2f2f2';
         }
     }
 </script>
